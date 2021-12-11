@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: agautier <agautier@student.42.fr>          +#+  +:+       +#+         #
+#    By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
-#    Updated: 2021/12/11 14:58:01 by agautier         ###   ########.fr        #
+#    Updated: 2021/12/11 16:25:10 by mamaquig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,14 @@ O			=	obj/
 I			=	header/
 D			=	dep/
 
-SRC			=	src/main.c	\
-				\
-				src/buffer/buffer_add.c \
-				src/buffer/buffer_print.c
+SRC			=	src/main.c						\
+				src/ft_split.c					\
+				src/ft_strjoin.c				\
+				src/ft_strlcpy.c				\
+				src/ft_strlen.c					\
+				src/get_next_line.c				\
+				src/buffer/buffer_add.c 		\
+				src/buffer/buffer_print.c		\
 
 OBJ			=	$(SRC:$S%.c=$O%.o)
 DEP			=	$(SRC:$S%.c=$D%.d)
