@@ -6,7 +6,7 @@
 /*   By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:50:04 by mamaquig          #+#    #+#             */
-/*   Updated: 2021/12/11 17:36:31 by mamaquig         ###   ########.fr       */
+/*   Updated: 2021/12/11 17:55:18 by mamaquig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	new_buffer(char *buffer, int data)
 	buffer[i] = '\0';
 }
 
-t_node	*gnl(t_buffer	*buf, int data)
+t_node	*gnl(t_buffer	*buf)
 {
 	int			ret;
 	t_node		*line;
@@ -92,7 +92,7 @@ t_node	*gnl(t_buffer	*buf, int data)
 		return (NULL);
 	}
 	ret = 1;
-	while (check_nl(buf->data, data) == 0 && ret != 0)
+	while (check_nl(buf->data, 1) == 0 && ret != 0)
 	{
 		ret = read(STDIN_FILENO, buf->data, BUFFER_SIZE);
 		if (ret < 0)

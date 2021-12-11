@@ -6,7 +6,7 @@
 #    By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
-#    Updated: 2021/12/11 17:20:08 by mamaquig         ###   ########.fr        #
+#    Updated: 2021/12/11 17:51:52 by mamaquig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,10 @@ DEP			=	$(SRC:$S%.c=$D%.d)
 CC			=	cc
 
 CFLAGS		+=	-I$I
-CFLAGS		+=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS		+=	-Wall -Wextra -Werror -g3
+# -fsanitize=address
 
-LDFLAGS		+= -g3 -fsanitize=address	# TODO: remove
+# LDFLAGS		+= -g3 -fsanitize=address	# TODO: remove
 
 RM			=	/bin/rm -f
 RMDIR		=	/bin/rm -Rf
