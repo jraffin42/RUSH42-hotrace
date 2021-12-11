@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agautier <agautier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:57:54 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 16:58:01 by agautier         ###   ########.fr       */
+/*   Updated: 2021/12/11 17:37:26 by mamaquig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 */
 char	*ft_strncpy(char *dest, char *src, int len)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i] != '\0' && i < len)

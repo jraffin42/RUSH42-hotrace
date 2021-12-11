@@ -6,7 +6,7 @@
 #    By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
-#    Updated: 2021/12/11 16:25:10 by mamaquig         ###   ########.fr        #
+#    Updated: 2021/12/11 17:20:08 by mamaquig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRC			=	src/main.c						\
 				src/ft_strlcpy.c				\
 				src/ft_strlen.c					\
 				src/get_next_line.c				\
+				src/ft_strncpy.c				\
+				src/create_node.c				\
 				src/buffer/buffer_add.c 		\
 				src/buffer/buffer_print.c		\
 
