@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_print.c                                     :+:      :+:    :+:   */
+/*   buffer_TEST.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agautier <agautier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:05:22 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 14:59:23 by agautier         ###   ########.fr       */
+/*   Created: 2021/12/11 11:09:19 by agautier          #+#    #+#             */
+/*   Updated: 2021/12/11 18:30:32 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "hotrace.h"
-#include <unistd.h>
 
-/*
-**	Print output buffer in STDOUT.
-*/
-void	buffer_print(t_buffer *buf)
+int	main(void)
 {
-	write(STDOUT_FILENO, buf->data, buf->head);
-	buf->head = 0;
+	static t_buffer	buffer;
+
+	buffer.eof = -1;
+	buffer_add(&buffer, "Hello World!\n");
+	buffer_add(&buffer, "My name is agautier\n");
+	buffer_print(&buffer);
+	return (EXIT_SUCCESS);
 }

@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   buffer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agautier <agautier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 11:09:19 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 14:55:11 by agautier         ###   ########.fr       */
+/*   Created: 2021/12/11 12:02:35 by agautier          #+#    #+#             */
+/*   Updated: 2021/12/11 18:40:37 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "hotrace.h"
+#include <unistd.h>
+#include "buffer.h"
 
-int	main(void)
+/*
+**	Add str to output buffer.
+*/
+void	buffer_add(t_buffer *buf, char *str)
 {
-	static t_buffer	buffer;
+	unsigned int	i;
 
-	buffer.eof = -1;
-	buffer_add(&buffer, "Hello World!\n");
-	buffer_add(&buffer, "My name is agautier\n");
-	buffer_print(&buffer);
-	return (EXIT_SUCCESS);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (buf->head >= BUFFER_SIZE)
+			buffer_print(buf);
+		buf->data[buf->head] = str[i];
+		i += 1;
+		buf->head += 1;
+	}
+}
+
+/*
+**	Print output buffer in STDOUT.
+*/
+void	buffer_print(t_buffer *buf)
+{
+	write(STDOUT_FILENO, buf->data, buf->head);
+	buf->head = 0;
 }

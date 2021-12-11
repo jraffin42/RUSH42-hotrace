@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:50:04 by mamaquig          #+#    #+#             */
-/*   Updated: 2021/12/11 17:55:18 by mamaquig         ###   ########.fr       */
+/*   Updated: 2021/12/11 18:29:07 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_node	*gnl(t_buffer	*buf)
 	}
 	line = create_node(buf->data, check_nl(buf->data, 0) - 1,
 			(check_nl(buf->data, 1) - 1) - check_nl(buf->data, 0));
-	printf("key = %s\n", line->key);
+	printf("key = %s\n", line->keyword);
 	printf("value = %s\n", line->value);
 	new_buffer(buf->data, 1);
 	return (line);

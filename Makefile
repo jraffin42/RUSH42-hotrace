@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+         #
+#    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
-#    Updated: 2021/12/11 17:51:52 by mamaquig         ###   ########.fr        #
+#    Updated: 2021/12/11 18:41:27 by jraffin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	hotrace
 
 S			=	src/
 O			=	obj/
-I			=	header/
+I			=	inc/
 D			=	dep/
 
 SRC			=	src/main.c						\

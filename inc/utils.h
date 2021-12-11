@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hashtable.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 17:13:45 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/11 18:00:40 by jraffin          ###   ########.fr       */
+/*   Created: 2021/12/11 17:00:42 by jraffin           #+#    #+#             */
+/*   Updated: 2021/12/11 18:38:38 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HASHTABLE_H
-# define HASHTABLE_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# define HASH_MODULUS 16784171
-
-typedef struct	s_node
-{
-	char			*keyword;
-	char			*value;
-	struct s_node	*next;
-}	t_node;
-
-t_node	**init_hashtable();
-char 	*seek_value(t_node **hashtable, char *keyword);
-void	add_node(t_node **hashtable, t_node* node);
+int		ft_strlen(const char *s);
+int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strncpy(char *dest, char *src, int len);
 
 #endif
