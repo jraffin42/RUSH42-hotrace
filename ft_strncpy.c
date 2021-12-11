@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hotrace.h                                          :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agautier <agautier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 11:52:46 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 16:58:38 by agautier         ###   ########.fr       */
+/*   Created: 2021/12/11 16:57:54 by agautier          #+#    #+#             */
+/*   Updated: 2021/12/11 16:58:01 by agautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOTRACE_H
-# define HOTRACE_H
+#include "hotrace.h"
 
-# include "hotrace_buffer.h"
-
-typedef struct s_node t_node;
-
-struct s_node
+/*
+**	Copy at most len char of src in dest.
+*/
+char	*ft_strncpy(char *dest, char *src, int len)
 {
-	char	*key;
-	char	*value;
-	t_node	*next;
-};
+	int i;
 
-char	*ft_strncpy(char *dest, char *src, int len);
-
-#endif
+	i = 0;
+	while (src[i] != '\0' && i < len)
+	{
+		dest[i] = src[i];
+		i += 1;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
