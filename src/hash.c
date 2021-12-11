@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hotrace.h                                          :+:      :+:    :+:   */
+/*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 11:52:46 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 20:16:34 by jraffin          ###   ########.fr       */
+/*   Created: 2021/12/11 20:00:35 by jraffin           #+#    #+#             */
+/*   Updated: 2021/12/11 21:56:38 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOTRACE_H
-# define HOTRACE_H
+#include "hashtable.h"
 
-# include "hashtable.h"
-# include "buffer.h"
+unsigned int	hash(const char *keyword)
+{
+	unsigned int	hash;
 
-t_node	*get_next_node(t_buffer *buf);
-char	*get_next_keyword(t_buffer *buf, int *key_len);
-#endif
+	hash = 4603;
+	while (*keyword)
+		hash = hash * 101 + *keyword++;
+	return (hash % HASH_MODULUS);
+}

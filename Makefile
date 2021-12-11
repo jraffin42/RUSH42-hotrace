@@ -6,7 +6,7 @@
 #    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
-#    Updated: 2021/12/11 18:41:27 by jraffin          ###   ########.fr        #
+#    Updated: 2021/12/11 22:35:33 by jraffin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,15 +18,10 @@ I			=	inc/
 D			=	dep/
 
 SRC			=	src/main.c						\
-				src/ft_split.c					\
-				src/ft_strjoin.c				\
-				src/ft_strlcpy.c				\
-				src/ft_strlen.c					\
-				src/get_next_line.c				\
-				src/ft_strncpy.c				\
-				src/create_node.c				\
-				src/buffer/buffer_add.c 		\
-				src/buffer/buffer_print.c		\
+				src/utils.c						\
+				src/gnl.c						\
+				src/hash.c						\
+				src/hashtable.c					\
 
 OBJ			=	$(SRC:$S%.c=$O%.o)
 DEP			=	$(SRC:$S%.c=$D%.d)
@@ -34,7 +29,7 @@ DEP			=	$(SRC:$S%.c=$D%.d)
 CC			=	cc
 
 CFLAGS		+=	-I$I
-CFLAGS		+=	-Wall -Wextra -Werror -g3
+CFLAGS		+=	-Wall -Wextra -Werror -g #-Ofast
 # -fsanitize=address
 
 # LDFLAGS		+= -g3 -fsanitize=address	# TODO: remove

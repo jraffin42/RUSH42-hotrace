@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 17:02:00 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/11 18:38:20 by jraffin          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   utils.c											:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: jraffin <jraffin@student.42.fr>			+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2021/12/11 17:02:00 by jraffin		   #+#	#+#			 */
+/*   Updated: 2021/12/11 21:46:45 by jraffin		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 int	ft_strlen(const char *s)
@@ -44,4 +44,42 @@ char	*ft_strncpy(char *dest, char *src, int len)
 	}
 	dest[i] = '\0';
 	return (dest);
+}
+
+void	*ft_memmove(void *dest, const void *src, int n)
+{
+	int	i;
+
+	if (src == dest)
+		return (dest);
+	i = 0;
+	if (src < dest)
+	{
+		while (n)
+		{
+			n--;
+			((char *)dest)[n] = ((char *)src)[n];
+		}
+	}
+	else
+	{
+		while (i < n)
+		{
+			((char *)dest)[i] = ((char *)src)[i];
+			i++;
+		}
+	}
+	return (dest);
+}
+
+void	*ft_memchr(const void *s, int c, int n)
+{
+	while (n > 0 && *(unsigned char *)s != (unsigned char)c)
+	{
+		s++;
+		n--;
+	}
+	if (n > 0)
+		return ((void *)s);
+	return (0);
 }
