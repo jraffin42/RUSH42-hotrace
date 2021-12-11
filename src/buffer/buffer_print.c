@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   outbuf_add.c                                       :+:      :+:    :+:   */
+/*   buffer_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agautier <agautier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:02:35 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 13:18:53 by agautier         ###   ########.fr       */
+/*   Created: 2021/12/11 12:05:22 by agautier          #+#    #+#             */
+/*   Updated: 2021/12/11 14:59:23 by agautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hotrace.h"
+#include <unistd.h>
 
 /*
-**	Add str in output buffer.
+**	Print output buffer in STDOUT.
 */
-void	outbuf_add(t_outbuf *buf, char *str)
+void	buffer_print(t_buffer *buf)
 {
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (buf->head >= OUTBUF_SIZE)
-			outbuf_print(buf);
-		buf->str[buf->head] = str[i];
-		i += 1;
-		buf->head += 1;
-	}
+	write(STDOUT_FILENO, buf->data, buf->head);
+	buf->head = 0;
 }

@@ -6,13 +6,13 @@
 /*   By: agautier <agautier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:52:46 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 13:28:20 by agautier         ###   ########.fr       */
+/*   Updated: 2021/12/11 14:52:53 by agautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HOTRACE_H
 # define HOTRACE_H
 
-# include "hotrace_outbuf.h"
+# include "hotrace_buffer.h"
 
 #endif

@@ -6,7 +6,7 @@
 #    By: agautier <agautier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
-#    Updated: 2021/12/11 14:03:12 by agautier         ###   ########.fr        #
+#    Updated: 2021/12/11 14:58:01 by agautier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ D			=	dep/
 
 SRC			=	src/main.c	\
 				\
-				src/outbuf/outbuf_add.c \
-				src/outbuf/outbuf_print.c
+				src/buffer/buffer_add.c \
+				src/buffer/buffer_print.c
 
 OBJ			=	$(SRC:$S%.c=$O%.o)
 DEP			=	$(SRC:$S%.c=$D%.d)

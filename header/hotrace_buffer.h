@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hotrace_outbuf.h                                   :+:      :+:    :+:   */
+/*   hotrace_buffer.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agautier <agautier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 13:25:52 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 13:27:42 by agautier         ###   ########.fr       */
+/*   Updated: 2021/12/11 14:57:34 by agautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOTRACE_OUTBUF_H
-# define HOTRACE_OUTBUF_H
+#ifndef HOTRACE_BUFFER_H
+# define HOTRACE_BUFFER_H
 
-# include <stddef.h>
-
-# ifndef OUTBUF_SIZE
-#  define OUTBUF_SIZE 1024
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
 # endif
 
-typedef struct s_outbuf
+typedef struct s_buffer
 {
-	char	str[OUTBUF_SIZE];
-	size_t	head;
-}	t_outbuf;
+	char	data[BUFFER_SIZE];
+	int		head;
+	int		eof;
+}	t_buffer;
 
 /*
 **	Output buffer
 */
-void	outbuf_add(t_outbuf *buf, char *str);
-void	outbuf_print(t_outbuf *buf);
+void	buffer_add(t_buffer *buf, char *str);
+void	buffer_print(t_buffer *buf);
 
 #endif
