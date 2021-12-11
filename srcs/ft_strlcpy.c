@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_add.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mderome <mderome@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:02:35 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 15:25:32 by mamaquig         ###   ########.fr       */
+/*   Created: 2021/10/25 09:40:35 by mderome           #+#    #+#             */
+/*   Updated: 2021/12/11 10:25:43 by mderome          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hotrace.h"
 
-/*
-**	Add str in output buffer.
-*/
-void	buffer_add(t_buffer *buf, char *str)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	if (!dst || !src)
+		return (0);
+	if (size > 0)
 	{
-		if (buf->head >= BUFFER_SIZE)
-			buffer_print(buf);
-		buf->data[buf->head] = str[i];
-		i += 1;
-		buf->head += 1;
+		while (--size && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
+	i = 0;
+	while (src[i])
+		i++;
+	return (i);
 }

@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_add.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mderome <mderome@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:02:35 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 15:25:32 by mamaquig         ###   ########.fr       */
+/*   Created: 2021/10/25 10:20:14 by mderome           #+#    #+#             */
+/*   Updated: 2021/12/11 10:34:54 by mderome          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hotrace.h"
 
-/*
-**	Add str in output buffer.
-*/
-void	buffer_add(t_buffer *buf, char *str)
+size_t	ft_strlen(const char *s)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
-	{
-		if (buf->head >= BUFFER_SIZE)
-			buffer_print(buf);
-		buf->data[buf->head] = str[i];
-		i += 1;
-		buf->head += 1;
-	}
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }
