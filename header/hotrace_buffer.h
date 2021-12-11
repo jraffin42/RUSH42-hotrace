@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hotrace_buffer.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agautier <agautier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 13:25:52 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 14:57:34 by agautier         ###   ########.fr       */
+/*   Updated: 2021/12/11 15:51:49 by mamaquig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define HOTRACE_BUFFER_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 4096
 # endif
 
 typedef struct s_buffer

@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_add.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agautier <agautier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:02:35 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 15:25:32 by mamaquig         ###   ########.fr       */
+/*   Created: 2021/12/11 11:09:19 by agautier          #+#    #+#             */
+/*   Updated: 2021/12/11 14:55:11 by agautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "hotrace.h"
 
-/*
-**	Add str in output buffer.
-*/
-void	buffer_add(t_buffer *buf, char *str)
+int	main(void)
 {
-	unsigned int	i;
+	static t_buffer	buffer;
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (buf->head >= BUFFER_SIZE)
-			buffer_print(buf);
-		buf->data[buf->head] = str[i];
-		i += 1;
-		buf->head += 1;
-	}
+	buffer.eof = -1;
+	buffer_add(&buffer, "Hello World!\n");
+	buffer_add(&buffer, "My name is agautier\n");
+	buffer_print(&buffer);
+	return (EXIT_SUCCESS);
 }
