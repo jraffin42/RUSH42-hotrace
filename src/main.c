@@ -6,7 +6,7 @@
 /*   By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 10:03:38 by mderome           #+#    #+#             */
-/*   Updated: 2021/12/11 16:26:40 by mamaquig         ###   ########.fr       */
+/*   Updated: 2021/12/11 16:48:23 by agautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,12 @@ void print_tab(char **tab)
 
 int main(void)
 {
-    int				ret_read;
 	static t_buffer	buf;
-    char			*tmp;
 	int				data;
     //char    **tab;
 	data = 1;
 	char *line = gnl(&buf, data);
 
-    ret_read = 1;
-    tmp = NULL;
 	while (line)
 	{
 		printf("line = %s\n", line);
