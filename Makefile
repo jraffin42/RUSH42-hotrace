@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
+#    By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
-#    Updated: 2021/12/11 22:35:33 by jraffin          ###   ########.fr        #
+#    Updated: 2021/12/12 15:40:39 by mamaquig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,9 @@ DEP			=	$(SRC:$S%.c=$D%.d)
 CC			=	cc
 
 CFLAGS		+=	-I$I
-CFLAGS		+=	-Wall -Wextra -Werror -g #-Ofast
-# -fsanitize=address
+CFLAGS		+=	-Wall -Wextra -Werror -g3 -fsanitize=address
 
-# LDFLAGS		+= -g3 -fsanitize=address	# TODO: remove
+LDFLAGS		+= -g3 -fsanitize=address	# TODO: remove
 
 RM			=	/bin/rm -f
 RMDIR		=	/bin/rm -Rf

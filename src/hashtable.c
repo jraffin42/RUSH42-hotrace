@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hashtable.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mderome <mderome@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mamaquig <mamaquig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:13:43 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/12 13:46:51 by mderome          ###   ########.fr       */
+/*   Updated: 2021/12/12 15:40:10 by mamaquig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_node	*create_node(char *str, int key_len, int val_len)
 {
 	t_node	*node;
 
-	node = malloc(sizeof(t_node) + key_len + val_len + 2);
+	node = malloc(sizeof(t_node) + (key_len + 1) + (val_len + 2) + 1);
 	if (!node)
 	{
 		if (write(2, strerror(errno), ft_strlen(strerror(errno))))
