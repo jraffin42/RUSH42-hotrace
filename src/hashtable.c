@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hashtable.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mderome <mderome@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:13:43 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/11 22:34:01 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 13:46:51 by mderome          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <errno.h>
 #include "hashtable.h"
 #include "utils.h"
+#include <stdio.h>
 
 t_node	*create_node(char *str, int key_len, int val_len)
 {
@@ -33,7 +34,7 @@ t_node	*create_node(char *str, int key_len, int val_len)
 	node->keyword = ((char *)node) + sizeof(t_node);
 	node->value = node->keyword + key_len + 1;
 	node->keyword = ft_strncpy(node->keyword, str, key_len);
-	node->value = ft_strncpy(node->value, str + key_len + 1, val_len);
+	node->value = ft_strncpy(node->value, str + key_len + 1, val_len + 2);
 	node->next = NULL;
 	return (node);
 }

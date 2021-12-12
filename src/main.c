@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mderome <mderome@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 10:03:38 by mderome           #+#    #+#             */
-/*   Updated: 2021/12/11 22:27:42 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 13:47:54 by mderome          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hotrace.h"
 #include <unistd.h>
+#include <stdio.h>
 
 static void	not_found(char *keyword, int len)
 {
@@ -26,7 +27,7 @@ static void	print_line(char *str, int len)
 {
 	int	ignore;
 
-	ignore = write(STDOUT_FILENO, str, len);
+	ignore = write(STDOUT_FILENO, str, len + 2);
 	if (write(STDOUT_FILENO, "\n", 1) || ignore)
 		NULL;
 }
@@ -41,6 +42,7 @@ static void	phase1(t_buffer *readbuf, t_node **hashtable)
 		add_node(hashtable, node);
 		node = get_next_node(readbuf);
 	}
+	readbuf->head++;
 }
 
 static void	phase2(t_buffer *readbuf, t_node **hashtable)
