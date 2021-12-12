@@ -6,7 +6,7 @@
 #    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/12 14:25:17 by jraffin           #+#    #+#              #
-#    Updated: 2021/12/12 16:11:30 by jraffin          ###   ########.fr        #
+#    Updated: 2021/12/12 17:09:21 by jraffin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,6 @@ clean			:
 fclean			:	clean
 	$(RM) -f $(NAME) $(NAME).debug
 
-re				:	fclean
-	$(MAKE)
+re				:	fclean all
 
 .PHONY			:	all clean fclean re

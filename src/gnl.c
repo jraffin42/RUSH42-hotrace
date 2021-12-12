@@ -6,7 +6,7 @@
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 18:54:11 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/12 16:58:49 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 17:07:59 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ int	is_node_complete(t_buffer *buf, int end, int *key_len, int *val_len)
 	if (i < end)
 	{
 		found_count++;
-		*key_len = i - buf->head;
+		*key_len = i++ - buf->head;
 		if (!*key_len)
 		{
 			buf->head++;
 			return (-1);
 		}
-		i++;
 	}
 	while (i < end && buf->data[i] != '\n')
 		i++;
@@ -82,8 +81,8 @@ int	read_in_buffer(t_buffer *buf)
 t_node	*get_next_node(t_buffer *buf)
 {
 	t_node	*node;
-	int		keylen;
-	int		valuelen;
+	int		key_len;
+	int		val_len;
 	int		end;
 	int		complete;
 
@@ -91,16 +90,18 @@ t_node	*get_next_node(t_buffer *buf)
 		end = BUFFER_SIZE;
 	else
 		end = buf->eof;
-	complete = is_node_complete(buf, end, &keylen, &valuelen);
+	key_len = 0;
+	val_len = 0;
+	complete = is_node_complete(buf, end, &key_len, &val_len);
 	if (complete == -1 || (complete == 0 && read_in_buffer(buf)))
 		return (NULL);
 	if (buf->eof != -1)
 		end = buf->eof;
 	node = NULL;
-	if (complete || is_node_complete(buf, end, &keylen, &valuelen))
+	if (complete || is_node_complete(buf, end, &key_len, &val_len))
 	{
-		node = create_node(buf->data + buf->head, keylen, valuelen);
-		buf->head += keylen + valuelen + 2;
+		node = create_node(buf->data + buf->head, key_len, val_len);
+		buf->head += key_len + val_len + 2;
 	}
 	return (node);
 }
