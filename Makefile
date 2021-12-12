@@ -6,7 +6,7 @@
 #    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/12 14:25:17 by jraffin           #+#    #+#              #
-#    Updated: 2021/12/12 16:00:24 by jraffin          ###   ########.fr        #
+#    Updated: 2021/12/12 16:11:30 by jraffin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCDEBUG	=	DEBUG_main.c	\
 OBJS		=	$(addprefix $(OBJDIR)/,$(SRCFILES:.c=.o))
 DEBUGOBJS	=	$(addprefix $(DEBUGDIR)/,$(SRCDEBUG:.c=.o))
 
-CC			=	gcc
+CC			=	cc
 RM			=	rm
 
 CFLAGS		=	-Wall -Wextra -Werror
