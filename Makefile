@@ -6,7 +6,7 @@
 #    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/12 14:25:17 by jraffin           #+#    #+#              #
-#    Updated: 2021/12/12 23:18:19 by jraffin          ###   ########.fr        #
+#    Updated: 2021/12/13 00:03:50 by jraffin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ SHELL		=	/bin/sh
 
 NAME		=	hotrace
 
-INCLUDEDIR	=	./inc
+INCLUDEDIR	=	.
 
-SRCDIR		=	./src
+SRCDIR		=	.
 OBJDIR		=	./obj
 
 SRCFILES	=	main.c			\

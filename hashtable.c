@@ -6,7 +6,7 @@
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:13:43 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/12 17:02:56 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 23:44:05 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ t_node	*create_node(char *str, int key_len, int val_len)
 
 	node = malloc(sizeof(t_node) + key_len + val_len + 2);
 	if (!node)
-	{
-		if (write(2, strerror(errno), ft_strlen(strerror(errno))))
-			NULL;
 		return (NULL);
-	}
 	node->key_len = key_len;
 	node->val_len = val_len;
 	node->keyword = ((char *)node) + sizeof(t_node);
@@ -45,11 +41,7 @@ t_node	**init_hashtable(void)
 
 	table = malloc(sizeof(t_node *) * HASH_MODULUS);
 	if (!table)
-	{
-		if (write(2, strerror(errno), ft_strlen(strerror(errno))))
-			NULL;
 		return (NULL);
-	}
 	i = 0;
 	while (i < HASH_MODULUS)
 		table[i++] = NULL;

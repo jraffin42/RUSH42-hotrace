@@ -10,18 +10,6 @@
 /*																			*/
 /* ************************************************************************** */
 
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
-}
-
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 && *s1 == *s2)
