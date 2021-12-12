@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   DEBUG_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 10:03:38 by mderome           #+#    #+#             */
-/*   Updated: 2021/12/11 22:27:42 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 15:56:22 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hotrace.h"
 #include <unistd.h>
+#include <fcntl.h>
 
 static void	not_found(char *keyword, int len)
 {
@@ -62,11 +63,41 @@ static void	phase2(t_buffer *readbuf, t_node **hashtable)
 	}
 }
 
-int	main(void)
+int	plug_stdin(int argc, char **argv)
+{
+	int	fd;
+
+	if (argc < 2)
+		return (1);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		if (write(STDERR_FILENO, "Can't open file.\n", 17))
+			NULL;
+		return (1);
+	}
+	if (dup2(fd, STDIN_FILENO) == -1)
+	{
+		if (write(STDERR_FILENO, "dup2() Error.\n", 14))
+			NULL;
+		return (1);
+	}
+	if (close(fd) == -1)
+	{
+		if (write(STDERR_FILENO, "Close() Error.\n", 15))
+			NULL;
+		return (1);
+	}
+	return (0);
+}
+
+int	main(int argc, char **argv)
 {
 	static t_buffer	readbuf;
 	t_node			**hashtable;
 
+	if (plug_stdin(argc, argv))
+		return (1);
 	readbuf.eof = -1;
 	readbuf.head = BUFFER_SIZE;
 	hashtable = init_hashtable();

@@ -1,0 +1,91 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
+#    Updated: 2021/12/12 15:38:33 by jraffin          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME		=	hotrace
+
+S			=	src/
+O			=	obj/
+I			=	inc/
+D			=	dep/
+DB			=	debug/
+
+SRC			=	src/main.c						\
+				src/utils.c						\
+				src/gnl.c						\
+				src/hash.c						\
+				src/hashtable.c					\
+
+OBJ			=	$(SRC:$S%.c=$O%.o)
+DEP			=	$(SRC:$S%.c=$D%.d)
+
+CC			=	cc
+
+CFLAGS		+=	-I$I
+CFLAGS		+=	-Wall -Wextra -Werror -Ofast
+
+ifdef DEBUG
+	SRC			:=	src/DEBUG_main.c				\
+					src/utils.c						\
+					src/gnl.c						\
+					src/hash.c						\
+					src/hashtable.c
+
+	OBJ			:=	$(SRC:$S%.c=$O%.o)
+	DEP			:=	$(SRC:$S%.c=$D%.d)
+	CFLAGS 		:=	-Wall -Wextra -Werror -g -Og
+	LIBFT		:=	$(addsuffix .debug,$(LIBFT))
+	NAME		:=	$(NAME).debug
+	O			:=	debug/
+endif
+
+# -fsanitize=address
+
+# LDFLAGS		+= -g3 -fsanitize=address	# TODO: remove
+
+RM			=	/bin/rm -f
+RMDIR		=	/bin/rm -Rf
+
+.PHONY:	all clean fclean re
+
+all: $(NAME)
+
+$O:
+	@mkdir -p $@
+
+$(OBJ): | $O
+
+$(OBJ): $O%.o: $S%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$D:
+	@mkdir -p $@
+
+$(DEP): | $D
+
+$(DEP): $D%.d: $S%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -MM -MF $@ -MT "$O$*.o $@" $<
+
+$(NAME): $(OBJ)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+clean:
+	$(RMDIR) $O $D $(DB)
+
+fclean: clean
+	$(RM) $(NAME) $(NAME).debug
+
+re: fclean
+	$(MAKE)
+
+-include $(DEP)

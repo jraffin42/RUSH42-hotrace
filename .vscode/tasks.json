@@ -5,7 +5,7 @@
             "label": "Build hotrace",
             "command": "/usr/bin/make",
             "args": [
-				"DEBUG=1"
+				"debug"
 			],
             "options": {
                 "cwd": "${workspaceFolder}"

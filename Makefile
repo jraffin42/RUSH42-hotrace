@@ -5,87 +5,70 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
-#    Updated: 2021/12/12 14:39:32 by jraffin          ###   ########.fr        #
+#    Created: 2020/12/12 14:25:17 by jraffin           #+#    #+#              #
+#    Updated: 2021/12/12 16:00:24 by jraffin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+SHELL		=	/bin/sh
+
 NAME		=	hotrace
 
-S			=	src/
-O			=	obj/
-I			=	inc/
-D			=	dep/
+INCLUDEDIR	=	./inc
 
-SRC			=	src/main.c						\
-				src/utils.c						\
-				src/gnl.c						\
-				src/hash.c						\
-				src/hashtable.c					\
+SRCDIR		=	./src
+OBJDIR		=	./obj
+DEBUGDIR	=	./debugdir
 
-OBJ			=	$(SRC:$S%.c=$O%.o)
-DEP			=	$(SRC:$S%.c=$D%.d)
+SRCFILES	=	main.c			\
+				utils.c			\
+				gnl.c			\
+				hash.c			\
+				hashtable.c		\
 
-CC			=	cc
+SRCDEBUG	=	DEBUG_main.c	\
+				utils.c			\
+				gnl.c			\
+				hash.c			\
+				hashtable.c		\
 
-CFLAGS		+=	-I$I
-CFLAGS		+=	-Wall -Wextra -Werror -Ofast
+OBJS		=	$(addprefix $(OBJDIR)/,$(SRCFILES:.c=.o))
+DEBUGOBJS	=	$(addprefix $(DEBUGDIR)/,$(SRCDEBUG:.c=.o))
 
-ifdef DEBUG
-	SRC			=	src/DEBUGmain.c					\
-					src/utils.c						\
-					src/gnl.c						\
-					src/hash.c						\
-					src/hashtable.c
+CC			=	gcc
+RM			=	rm
 
-	CFLAGS 			:=	-Wall -Wextra -Werror -g -Og
-	LIBFT			:=	$(addsuffix .debug,$(LIBFT))
-	NAME			:=	$(NAME).debug
-	O				:=	debug/
-endif
+CFLAGS		=	-Wall -Wextra -Werror
 
-# -fsanitize=address
+$(OBJDIR)/%.o	:	$(SRCDIR)/%.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -Ofast $(addprefix -I ,$(INCLUDEDIR)) -c $< -o $@
 
-# LDFLAGS		+= -g3 -fsanitize=address	# TODO: remove
+$(DEBUGDIR)/%.o	:	$(SRCDIR)/%.c | $(DEBUGDIR)
+	$(CC) $(CFLAGS) -g -Og $(addprefix -I ,$(INCLUDEDIR)) -c $< -o $@
 
-RM			=	/bin/rm -f
-RMDIR		=	/bin/rm -Rf
+all				:	$(NAME)
 
-.PHONY:	all clean fclean re
+debug			:	$(NAME).debug
 
-all: $(NAME)
+$(NAME)			:	$(OBJS)
+	$(CC) $(CFLAGS) -Ofast -o $(NAME) $(OBJS)
 
-$O:
-	@mkdir -p $@
+$(NAME).debug	:	$(DEBUGOBJS)
+	$(CC) $(CFLAGS) -g -Og -o $(NAME).debug $(DEBUGOBJS)
 
-$(OBJ): | $O
+$(DEBUGDIR)		:
+	mkdir $(DEBUGDIR)
 
-$(OBJ): $O%.o: $S%.c
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)		:
+	mkdir $(OBJDIR)
 
-$D:
-	@mkdir -p $@
+clean			:
+	$(RM) -rf $(OBJDIR) $(DEBUGDIR)
 
-$(DEP): | $D
+fclean			:	clean
+	$(RM) -f $(NAME) $(NAME).debug
 
-$(DEP): $D%.d: $S%.c
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -MM -MF $@ -MT "$O$*.o $@" $<
-
-$(NAME): $(OBJ)
-	$(CC) $(LDFLAGS) $^ -o $@
-
-clean:
-	$(RM) $(wildcard $(OBJ))
-	$(RMDIR) $O
-	$(RM) $(wildcard $(DEP))
-	$(RMDIR) $D
-
-fclean: clean
-	$(RM) $(NAME)
-
-re: fclean
+re				:	fclean
 	$(MAKE)
 
--include $(DEP)
+.PHONY			:	all clean fclean re
