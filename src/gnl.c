@@ -6,7 +6,7 @@
 /*   By: mderome <mderome@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 18:54:11 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/12 13:47:24 by mderome          ###   ########.fr       */
+/*   Updated: 2021/12/12 14:09:02 by mderome          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	is_node_complete(t_buffer *buf, int end, int *key_len, int *val_len)
 		*key_len = ++i - buf->head;
 		if (!*key_len)
 		{
-			printf("test\n");
 			buf->head++;
 			return (-1);
 		}
