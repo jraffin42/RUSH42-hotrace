@@ -39,9 +39,10 @@ CC			=	cc
 RM			=	rm
 
 CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		+= -DTEST_WRITEBUF=1
 
 $(OBJDIR)/%.o	:	$(SRCDIR)/%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -Ofast $(addprefix -I ,$(INCLUDEDIR)) -c $< -o $@
+	$(CC) $(CFLAGS) -Ofast -fno-builtin $(addprefix -I ,$(INCLUDEDIR)) -c $< -o $@
 
 $(DEBUGDIR)/%.o	:	$(SRCDIR)/%.c | $(DEBUGDIR)
 	$(CC) $(CFLAGS) -g -Og $(addprefix -I ,$(INCLUDEDIR)) -c $< -o $@
@@ -51,7 +52,7 @@ all				:	$(NAME)
 debug			:	$(NAME).debug
 
 $(NAME)			:	$(OBJS)
-	$(CC) $(CFLAGS) -Ofast -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) -Ofast -fno-builtin -o $(NAME) $(OBJS)
 
 $(NAME).debug	:	$(DEBUGOBJS)
 	$(CC) $(CFLAGS) -g -Og -o $(NAME).debug $(DEBUGOBJS)
