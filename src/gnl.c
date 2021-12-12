@@ -6,7 +6,7 @@
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 18:54:11 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/11 22:31:12 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 16:58:49 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,20 @@ int	is_node_complete(t_buffer *buf, int end, int *key_len, int *val_len)
 	if (i < end)
 	{
 		found_count++;
-		*key_len = i++ - buf->head;
+		*key_len = i - buf->head;
 		if (!*key_len)
 		{
 			buf->head++;
 			return (-1);
 		}
+		i++;
 	}
 	while (i < end && buf->data[i] != '\n')
 		i++;
 	if (i < end)
 	{
 		found_count++;
-		*val_len = i++ - buf->head;
+		*val_len = i - (buf->head + *key_len + 1);
 	}
 	return (found_count == 2);
 }
@@ -91,10 +92,10 @@ t_node	*get_next_node(t_buffer *buf)
 	else
 		end = buf->eof;
 	complete = is_node_complete(buf, end, &keylen, &valuelen);
-	if (complete == -1)
+	if (complete == -1 || (complete == 0 && read_in_buffer(buf)))
 		return (NULL);
-	if (!complete && read_in_buffer(buf))
-		return (NULL);
+	if (buf->eof != -1)
+		end = buf->eof;
 	node = NULL;
 	if (complete || is_node_complete(buf, end, &keylen, &valuelen))
 	{

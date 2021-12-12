@@ -6,7 +6,7 @@
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:13:43 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/11 22:34:01 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 17:02:56 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_node	*create_node(char *str, int key_len, int val_len)
 	node->val_len = val_len;
 	node->keyword = ((char *)node) + sizeof(t_node);
 	node->value = node->keyword + key_len + 1;
-	node->keyword = ft_strncpy(node->keyword, str, key_len);
-	node->value = ft_strncpy(node->value, str + key_len + 1, val_len);
+	ft_strncpy(node->keyword, str, key_len);
+	ft_strncpy(node->value, str + key_len + 1, val_len);
 	node->next = NULL;
 	return (node);
 }
