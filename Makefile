@@ -6,7 +6,7 @@
 #    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/10 21:42:24 by agautier          #+#    #+#              #
-#    Updated: 2021/12/11 22:35:33 by jraffin          ###   ########.fr        #
+#    Updated: 2021/12/12 14:39:32 by jraffin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,21 @@ DEP			=	$(SRC:$S%.c=$D%.d)
 CC			=	cc
 
 CFLAGS		+=	-I$I
-CFLAGS		+=	-Wall -Wextra -Werror -g #-Ofast
+CFLAGS		+=	-Wall -Wextra -Werror -Ofast
+
+ifdef DEBUG
+	SRC			=	src/DEBUGmain.c					\
+					src/utils.c						\
+					src/gnl.c						\
+					src/hash.c						\
+					src/hashtable.c
+
+	CFLAGS 			:=	-Wall -Wextra -Werror -g -Og
+	LIBFT			:=	$(addsuffix .debug,$(LIBFT))
+	NAME			:=	$(NAME).debug
+	O				:=	debug/
+endif
+
 # -fsanitize=address
 
 # LDFLAGS		+= -g3 -fsanitize=address	# TODO: remove
