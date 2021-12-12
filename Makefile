@@ -6,7 +6,7 @@
 #    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/12 14:25:17 by jraffin           #+#    #+#              #
-#    Updated: 2021/12/12 22:58:10 by jraffin          ###   ########.fr        #
+#    Updated: 2021/12/12 23:18:19 by jraffin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ INCLUDEDIR	=	./inc
 
 SRCDIR		=	./src
 OBJDIR		=	./obj
-DEBUGDIR	=	./debugdir
 
 SRCFILES	=	main.c			\
 				utils.c			\
@@ -27,15 +26,7 @@ SRCFILES	=	main.c			\
 				hash.c			\
 				hashtable.c		\
 
-SRCDEBUG	=	DEBUG_main.c	\
-				utils.c			\
-				buffer.c		\
-				gnl.c			\
-				hash.c			\
-				hashtable.c		\
-
 OBJS		=	$(addprefix $(OBJDIR)/,$(SRCFILES:.c=.o))
-DEBUGOBJS	=	$(addprefix $(DEBUGDIR)/,$(SRCDEBUG:.c=.o))
 
 CC			=	cc
 RM			=	rm
@@ -45,30 +36,19 @@ CFLAGS		=	-Wall -Wextra -Werror
 $(OBJDIR)/%.o	:	$(SRCDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -Ofast -fno-builtin $(addprefix -I ,$(INCLUDEDIR)) -c $< -o $@
 
-$(DEBUGDIR)/%.o	:	$(SRCDIR)/%.c | $(DEBUGDIR)
-	$(CC) $(CFLAGS) -g -Og $(addprefix -I ,$(INCLUDEDIR)) -c $< -o $@
-
 all				:	$(NAME)
-
-debug			:	$(NAME).debug
 
 $(NAME)			:	$(OBJS)
 	$(CC) $(CFLAGS) -Ofast -fno-builtin -o $(NAME) $(OBJS)
-
-$(NAME).debug	:	$(DEBUGOBJS)
-	$(CC) $(CFLAGS) -g -Og -o $(NAME).debug $(DEBUGOBJS)
-
-$(DEBUGDIR)		:
-	mkdir $(DEBUGDIR)
 
 $(OBJDIR)		:
 	mkdir $(OBJDIR)
 
 clean			:
-	$(RM) -rf $(OBJDIR) $(DEBUGDIR)
+	$(RM) -rf $(OBJDIR)
 
 fclean			:	clean
-	$(RM) -f $(NAME) $(NAME).debug
+	$(RM) -f $(NAME)
 
 re				:	fclean all
 
