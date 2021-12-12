@@ -6,7 +6,7 @@
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 11:09:19 by agautier          #+#    #+#             */
-/*   Updated: 2021/12/11 18:46:13 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 21:36:10 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(void)
 {
-	static t_buffer	buffer;
+	static t_readbuf	buffer;
 
 	buffer.eof = -1;
 	buffer_add(&buffer, "Hello World!\n");

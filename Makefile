@@ -6,7 +6,7 @@
 #    By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/12 14:25:17 by jraffin           #+#    #+#              #
-#    Updated: 2021/12/12 17:09:21 by jraffin          ###   ########.fr        #
+#    Updated: 2021/12/12 22:58:10 by jraffin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,14 @@ DEBUGDIR	=	./debugdir
 
 SRCFILES	=	main.c			\
 				utils.c			\
+				buffer.c		\
 				gnl.c			\
 				hash.c			\
 				hashtable.c		\
 
 SRCDEBUG	=	DEBUG_main.c	\
 				utils.c			\
+				buffer.c		\
 				gnl.c			\
 				hash.c			\
 				hashtable.c		\
@@ -39,7 +41,6 @@ CC			=	cc
 RM			=	rm
 
 CFLAGS		=	-Wall -Wextra -Werror
-CFLAGS		+= -DTEST_WRITEBUF=1
 
 $(OBJDIR)/%.o	:	$(SRCDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -Ofast -fno-builtin $(addprefix -I ,$(INCLUDEDIR)) -c $< -o $@

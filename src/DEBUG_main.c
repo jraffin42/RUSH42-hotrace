@@ -6,62 +6,13 @@
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 10:03:38 by mderome           #+#    #+#             */
-/*   Updated: 2021/12/12 15:56:22 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 23:07:19 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hotrace.h"
 #include <unistd.h>
 #include <fcntl.h>
-
-static void	not_found(char *keyword, int len)
-{
-	int	ignore;
-
-	ignore = write(STDOUT_FILENO, keyword, len);
-	if (write(STDOUT_FILENO, ": Not found.\n", 13) || ignore)
-		NULL;
-}
-
-static void	print_line(char *str, int len)
-{
-	int	ignore;
-
-	ignore = write(STDOUT_FILENO, str, len);
-	if (write(STDOUT_FILENO, "\n", 1) || ignore)
-		NULL;
-}
-
-static void	phase1(t_buffer *readbuf, t_node **hashtable)
-{
-	t_node			*node;
-
-	node = get_next_node(readbuf);
-	while (node)
-	{
-		add_node(hashtable, node);
-		node = get_next_node(readbuf);
-	}
-}
-
-static void	phase2(t_buffer *readbuf, t_node **hashtable)
-{
-	char	*keyword;
-	char	*value;
-	int		key_len;
-	int		val_len;
-
-	keyword = get_next_keyword(readbuf, &key_len);
-	while (keyword)
-	{
-		value = seek_value(hashtable, keyword, &val_len);
-		if (value)
-			print_line(value, val_len);
-		else
-			not_found(keyword, key_len);
-		keyword = get_next_keyword(readbuf, &key_len);
-	}
-}
 
 int	plug_stdin(int argc, char **argv)
 {
@@ -91,20 +42,56 @@ int	plug_stdin(int argc, char **argv)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+static void	phase1(t_readbuf *readbuf, t_node **hashtable)
 {
-	static t_buffer	readbuf;
-	t_node			**hashtable;
+	t_node			*node;
 
-	if (plug_stdin(argc, argv))
-		return (1);
-	readbuf.eof = -1;
-	readbuf.head = BUFFER_SIZE;
+	node = get_next_node(readbuf);
+	while (node)
+	{
+		add_node(hashtable, node);
+		node = get_next_node(readbuf);
+	}
+}
+
+static void	phase2(t_readbuf *readbuf, t_writebuf *writebuf, t_node **hashtable)
+{
+	char	*keyword;
+	char	*value;
+	int		key_len;
+	int		val_len;
+
+	keyword = get_next_keyword(readbuf, &key_len);
+	while (keyword)
+	{
+		if (key_len)
+		{
+			value = seek_value(hashtable, keyword, &val_len);
+			if (value)
+				writebuffer_add(writebuf, value, "\n", val_len + 1);
+			else
+				writebuffer_add(writebuf, keyword,
+					": Not found.\n", key_len + 13);
+		}
+		keyword = get_next_keyword(readbuf, &key_len);
+	}
+}
+
+int	main(void)
+{
+	static t_readbuf	readbuf;
+	t_writebuf			writebuf;
+	t_node				**hashtable;
+
+	readbuf.head = 0;
+	readbuf.end = 0;
+	writebuf.head = 0;
 	hashtable = init_hashtable();
 	if (!hashtable)
 		return (1);
 	phase1(&readbuf, hashtable);
-	phase2(&readbuf, hashtable);
+	phase2(&readbuf, &writebuf, hashtable);
+	writebuffer_print(&writebuf);
 	free_hashtable(hashtable);
-	return (readbuf.eof == -1 || readbuf.head < readbuf.eof);
+	return (!readbuf.eof_reached || readbuf.head < readbuf.end);
 }

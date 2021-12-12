@@ -6,7 +6,7 @@
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 18:54:11 by jraffin           #+#    #+#             */
-/*   Updated: 2021/12/12 17:07:59 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/12/12 22:23:19 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 **				0	if there isn't 2 \n present
 **				1	if there is 2 \n present (and sets *key_len and *val_len)
 */
-int	is_node_complete(t_buffer *buf, int end, int *key_len, int *val_len)
+static inline int	is_node_complete(t_readbuf *buf, int *key_len, int *val_len)
 {
 	int	i;
 	int	found_count;
 
 	found_count = 0;
 	i = buf->head;
-	while (i < end && buf->data[i] != '\n')
+	while (i < buf->end && buf->data[i] != '\n')
 		i++;
-	if (i < end)
+	if (i < buf->end)
 	{
 		found_count++;
 		*key_len = i++ - buf->head;
@@ -40,9 +40,9 @@ int	is_node_complete(t_buffer *buf, int end, int *key_len, int *val_len)
 			return (-1);
 		}
 	}
-	while (i < end && buf->data[i] != '\n')
+	while (i < buf->end && buf->data[i] != '\n')
 		i++;
-	if (i < end)
+	if (i < buf->end)
 	{
 		found_count++;
 		*val_len = i - (buf->head + *key_len + 1);
@@ -50,84 +50,57 @@ int	is_node_complete(t_buffer *buf, int end, int *key_len, int *val_len)
 	return (found_count == 2);
 }
 
-int	read_in_buffer(t_buffer *buf)
+int	read_in_buffer(t_readbuf *buf)
 {
-	int	readsize;
-	int	n;
+	int	read_n;
 
-	if (buf->eof != -1)
+	if (buf->eof_reached)
 		return (1);
-	ft_memmove(buf->data, buf->data + buf->head, BUFFER_SIZE - buf->head);
-	readsize = buf->head;
+	ft_memmove(buf->data, buf->data + buf->head, buf->end - buf->head);
+	buf->end -= buf->head;
 	buf->head = 0;
-	n = 0;
-	while (buf->eof == -1 && readsize)
+	read_n = read(STDIN_FILENO, buf->data + buf->end, READBUF_SIZE - buf->end);
+	if (read_n > 0)
 	{
-		n = read(STDIN_FILENO, buf->data + BUFFER_SIZE - readsize, readsize);
-		if (n == -1)
-		{
-			if (write(2, strerror(errno), ft_strlen(strerror(errno))))
-				NULL;
-			return (1);
-		}
-		else if (n)
-			readsize -= n;
-		else
-			buf->eof = BUFFER_SIZE - readsize;
+		buf->end += read_n;
+		return (0);
 	}
-	return (0);
+	buf->eof_reached = 1;
+	return (1);
 }
 
-t_node	*get_next_node(t_buffer *buf)
+t_node	*get_next_node(t_readbuf *buf)
 {
 	t_node	*node;
 	int		key_len;
 	int		val_len;
-	int		end;
 	int		complete;
 
-	if (buf->eof == -1)
-		end = BUFFER_SIZE;
-	else
-		end = buf->eof;
 	key_len = 0;
 	val_len = 0;
-	complete = is_node_complete(buf, end, &key_len, &val_len);
-	if (complete == -1 || (complete == 0 && read_in_buffer(buf)))
+	complete = is_node_complete(buf, &key_len, &val_len);
+	while (!complete && !read_in_buffer(buf))
+		complete = is_node_complete(buf, &key_len, &val_len);
+	if (complete != 1)
 		return (NULL);
-	if (buf->eof != -1)
-		end = buf->eof;
-	node = NULL;
-	if (complete || is_node_complete(buf, end, &key_len, &val_len))
-	{
-		node = create_node(buf->data + buf->head, key_len, val_len);
-		buf->head += key_len + val_len + 2;
-	}
+	node = create_node(buf->data + buf->head, key_len, val_len);
+	buf->head += key_len + val_len + 2;
 	return (node);
 }
 
-char	*get_next_keyword(t_buffer *buf, int *key_len)
+char	*get_next_keyword(t_readbuf *buf, int *key_len)
 {
 	char	*nl;
 	char	*keyword;
-	int		end;
 
-	if (buf->eof == -1)
-		end = BUFFER_SIZE;
-	else
-		end = buf->eof;
-	nl = ft_memchr(buf->data + buf->head, '\n', end - buf->head);
-	if (!nl && read_in_buffer(buf))
-		return (NULL);
+	nl = ft_memchr(buf->data + buf->head, '\n', buf->end - buf->head);
+	while (!nl && !read_in_buffer(buf))
+		nl = ft_memchr(buf->data + buf->head, '\n', buf->end - buf->head);
 	if (!nl)
-		nl = ft_memchr(buf->data + buf->head, '\n', end - buf->head);
-	keyword = NULL;
-	if (nl)
-	{
-		keyword = buf->data + buf->head;
-		*key_len = nl - keyword;
-		*nl = '\0';
-		buf->head += *key_len + 1;
-	}
+		return (NULL);
+	keyword = buf->data + buf->head;
+	*key_len = nl - keyword;
+	buf->head += *key_len + 1;
+	*nl = '\0';
 	return (keyword);
 }
